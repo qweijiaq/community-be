@@ -1,0 +1,8 @@
+node_modules
+dist
+.vscode
+.husky
+.cz-config
+docker
+src/**/test.js
+src/**/demo.js
