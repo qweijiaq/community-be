@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-loader src/index.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack:debug": "node --inspect-brk ./node_modules/.bin/webpack --inline --progress",
     "build": "cross-env NODE_ENV=prod webpack --config config/webpack.config.prod.js",
     "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node --inspect ./src/index.js",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "watch": "cross-env NODE_ENV=dev webpack --watch --progress --config config/webpack.config.dev.js",
+    "debug": "nodemon --inspect ./dist/server.bundle.js"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
+    "@babel/eslint-parser": "^7.22.9",
     "@babel/node": "^7.22.6",
     "@babel/preset-env": "^7.22.9",
     "babel-loader": "^9.1.3",
@@ -45,6 +48,7 @@
   "dependencies": {
     "@koa/cors": "^4.0.0",
     "bluebird": "^3.7.2",
+    "jsonwebtoken": "^9.0.1",
     "koa": "^2.14.2",
     "koa-body": "^6.0.1",
     "koa-combine-routers": "^4.0.2",
@@ -52,12 +56,13 @@
     "koa-compress": "^5.1.1",
     "koa-helmet": "^7.0.2",
     "koa-json": "^2.0.2",
+    "koa-jwt": "^4.0.4",
     "koa-router": "^12.0.0",
     "koa-static": "^5.0.0",
     "moment": "^2.29.4",
     "mongoose": "^7.4.0",
     "nodemailer": "^6.9.4",
-    "redis": "^3.1.2",
+    "redis": "^2.8.0",
     "saslprep": "^1.0.3",
     "svg-captcha": "^1.4.0"
   }

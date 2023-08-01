@@ -23,15 +23,29 @@ const options = {
 
 const client = promisifyAll(redis.createClient(options))
 
+client.on('connect', function () {
+  console.log('Redis Connected!')
+})
+
 client.on('error', (err) => {
   console.log('Redis Client Error:' + err)
 })
 
-const setValue = (key, value) => {
+const setValue = (key, value, time) => {
   if (typeof value === 'undefined' || value == null || value === '') {
     return
   }
   if (typeof value === 'string') {
+    if (typeof time !== 'undefined') {
+      client.set(key, value, () => {
+        client.expire(key, time)
+      })
+      // client.set(key, value, 'EX', time)
+      // client.set(key, value)
+      // client.expire(key, time)
+    } else {
+      client.set(key, value)
+    }
     client.set(key, value)
   } else if (typeof value === 'object') {
     Object.keys(value).forEach((item) => {
